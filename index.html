@@ -1,0 +1,358 @@
+ <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HABOOB 🧇 - Order</title>
+<style>
+  body { font-family: 'Poppins', sans-serif; background: #fff7f0; margin: 0; padding: 10px; }
+  h1 { text-align: center; color: #FF8C42; margin-bottom: 20px; font-size: 28px; }
+  .menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+  .product { background: #FFE4C4; border-radius: 15px; width: 220px; padding: 15px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s; }
+  .product:hover { transform: translateY(-3px); }
+  .product img { width: 180px; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 8px; }
+  .product p { margin: 5px 0; text-align: center; font-weight: 500; }
+  .counter { display: flex; gap: 5px; align-items: center; margin-bottom: 5px; }
+  .counter button { padding: 4px 8px; cursor: pointer; border: none; background-color: #FF8C42; color: white; border-radius: 6px; font-weight: bold; transition: background-color 0.2s; }
+  .counter button:hover { background-color: #FF7034; }
+  .qty { min-width: 20px; text-align: center; font-weight: bold; }
+  .unit-addon select { width: 130px; padding: 4px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 5px; }
+  #total { font-weight: bold; color: #FF4500; margin: 10px 0; text-align: center; font-size: 16px; }
+  #preview { background: #fff5f5; padding: 12px; border-radius: 10px; margin-top: 10px; display: none; font-size: 14px; }
+  .form input, .form button, .form textarea, .form select { width: 100%; padding: 10px; margin: 5px 0; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; box-sizing: border-box; }
+  .form button { background: #FF8C42; color: #fff; border: none; cursor: pointer; font-weight: bold; transition: background-color 0.3s; }
+  .form button:hover:not(:disabled) { background: #FF7034; }
+  .form button:disabled { background: #ccc; cursor: not-allowed; }
+  label { font-size: 14px; color: #4b2a3a; margin: 5px 0; display: block; cursor: pointer; }
+  .unit-addon { margin-bottom: 5px; }
+</style>
+</head>
+<body>
+
+<h1>HABOOB 🧇</h1>
+
+<div class="menu">
+  <!-- الأصناف -->
+  <div class="product" data-name="Stick Waffle" data-price="0.75">
+    <img src="https://tse2.mm.bing.net/th/id/OIP.s64qGlzJ2YJ-6aS2vWGROAAAAA?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Stick Waffle" />
+    <p>Stick Waffle - <b>0.75 JD</b></p>
+    <div class="counter"><button class="minus">-</button><span class="qty">0</span><button class="plus">+</button></div>
+    <div class="units-container"></div>
+  </div>
+
+  <div class="product" data-name="Taiyaki Waffle" data-price="1.00">
+    <img src="https://i.imgur.com/hnMVK1c.jpeg" alt="Taiyaki Waffle" />
+    <p>Taiyaki Waffle - <b>1.00 JD</b></p>
+    <div class="counter"><button class="minus">-</button><span class="qty">0</span><button class="plus">+</button></div>
+    <div class="units-container"></div>
+  </div>
+
+  <div class="product" data-name="Classic Waffle" data-price="1.50">
+    <img src="https://media.istockphoto.com/id/1358966473/vector/waffle-vector-illustration.jpg?s=1024x1024&w=is&k=20&c=PZqX8WqsOXY4U5T8aVDeDwWt4rMCgK6XAsE4eMf8-qU=" alt="Classic Waffle" />
+    <p>Classic Waffle - <b>1.50 JD</b></p>
+    <div class="counter"><button class="minus">-</button><span class="qty">0</span><button class="plus">+</button></div>
+    <div class="units-container"></div>
+  </div>
+
+  <div class="product" data-name="Crepe" data-price="1.25">
+    <img src="https://th.bing.com/th/id/OIP.HIL0TCxVj23U5Gu1ySNsXgHaHa?w=186&h=186&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Crepe" />
+    <p>Crepe - <b>1.25 JD</b></p>
+    <div class="counter"><button class="minus">-</button><span class="qty">0</span><button class="plus">+</button></div>
+    <div class="units-container"></div>
+  </div>
+
+  <div class="product" data-name="Haboob Spaghetti" data-price="1.25">
+    <img src="https://hungryforhalaal.co.za/wp-content/uploads/2020/03/Dip-n-Dip-Hungry-for-Halaal-768x509.jpg" alt="Haboob Spaghetti" />
+    <p>Haboob Spaghetti - <b>1.25 JD</b></p>
+    <div class="counter"><button class="minus">-</button><span class="qty">0</span><button class="plus">+</button></div>
+    <div class="units-container"></div>
+  </div>
+
+  <div class="product" data-name="Moheto (كنزا ليمون)" data-price="1.00">
+    <img src="https://i.imgur.com/Z1URZ3T.jpeg" alt="Moheto Kenza Lemon" />
+    <p>Moheto (كنزا ليمون) - <b>1.00 JD</b></p>
+    <div class="counter"><button class="minus">-</button><span class="qty">0</span><button class="plus">+</button></div>
+    <div class="units-container"></div>
+  </div>
+
+  <div class="product" data-name="Moheto (BM)" data-price="1.25">
+    <img src="https://i.imgur.com/Z1URZ3T.jpeg" alt="Moheto BM" />
+    <p>Moheto (BM) - <b>1.25 JD</b></p>
+    <div class="counter"><button class="minus">-</button><span class="qty">0</span><button class="plus">+</button></div>
+    <div class="units-container"></div>
+  </div>
+
+  <div class="product" data-name="Moheto (بوم بوم)" data-price="1.50">
+    <img src="https://i.imgur.com/Z1URZ3T.jpeg" alt="Moheto Boom Boom" />
+    <p>Moheto (بوم بوم) - <b>1.50 JD</b></p>
+    <div class="counter"><button class="minus">-</button><span class="qty">0</span><button class="plus">+</button></div>
+    <div class="units-container"></div>
+  </div>
+</div>
+
+<p id="total">Total: 0 JD</p>
+
+<div class="form" aria-label="Order form">
+  <input type="text" id="name" placeholder="Name" required />
+  <input type="tel" id="phone" placeholder="Phone Number" required />
+  <textarea id="notes" placeholder="Notes" rows="2" style="resize:none"></textarea>
+
+  <p><b>Delivery Method:</b></p>
+  <label><input type="radio" name="delivery" value="Pickup" required /> Pickup (استلام)</label>
+  <label><input type="radio" name="delivery" value="Delivery" /> Delivery (توصيل)</label>
+
+  <select id="deliveryArea" style="display:none; margin-top:5px;">
+    <option value="" disabled selected>Select Delivery Area</option>
+    <option value="العيص" data-price="1">العيص - 1 JD</option>
+    <option value="مجادل" data-price="1.5">مجادل - 1.5 JD</option>
+    <option value="صويمح" data-price="1.5">صويمح - 1.5 JD</option>
+    <option value="شيظم" data-price="2">شيظم - 2 JD</option>
+    <option value="ابو بنا" data-price="2.5">ابو بنا - 2.5 JD</option>
+    <option value="وسط البلد الطفيله,القصر" data-price="3">وسط البلد الطفيله, القصر - 3 JD</option>
+    <option value="وادي زيد" data-price="4">وادي زيد - 4 JD</option>
+    <option value="مستشفى الطفيله العسكري,عين البيضا" data-price="5">مستشفى الطفيله العسكري, عين البيضا - 5 JD</option>
+    <option value="other" data-price="0">غير مذكورة</option>
+  </select>
+
+  <input type="text" id="address" placeholder="Address (for delivery)" disabled />
+
+  <button type="button" id="showPreviewBtn">Show Order</button>
+  <button type="button" id="sendBtn" disabled>Send via WhatsApp</button>
+  <button type="button" id="resetBtn">Cancel</button>
+</div>
+
+<div id="preview"></div>
+
+<script>
+const products = document.querySelectorAll(".product");
+const totalEl = document.getElementById("total");
+const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
+const deliveryAreaSelect = document.getElementById("deliveryArea");
+const addressInput = document.getElementById("address");
+const notesInput = document.getElementById("notes");
+const sendBtn = document.getElementById("sendBtn");
+const showPreviewBtn = document.getElementById("showPreviewBtn");
+const resetBtn = document.getElementById("resetBtn");
+const previewBox = document.getElementById("preview");
+
+// عرض/إخفاء قائمة المناطق
+deliveryRadios.forEach(radio => {
+  radio.addEventListener("change", () => {
+    if(radio.value === "Delivery" && radio.checked){
+      deliveryAreaSelect.style.display = "block";
+      deliveryAreaSelect.required = true;
+      addressInput.disabled = false;
+      addressInput.required = true;
+    } else {
+      deliveryAreaSelect.style.display = "none";
+      deliveryAreaSelect.value = "";
+      deliveryAreaSelect.required = false;
+      addressInput.disabled = true;
+      addressInput.required = false;
+      addressInput.value = "";
+    }
+    calculateTotal();
+    updateSendButtonState();
+  });
+});
+
+// أحداث أزرار الكمية
+products.forEach(product => {
+  const plusBtn = product.querySelector(".plus");
+  const minusBtn = product.querySelector(".minus");
+  const qtySpan = product.querySelector(".qty");
+  const unitsContainer = product.querySelector(".units-container");
+
+  plusBtn.addEventListener("click", () => {
+    let count = parseInt(qtySpan.textContent);
+    count++; qtySpan.textContent = count;
+
+    const div = document.createElement("div");
+    div.className = "unit-addon";
+    const sel = document.createElement("select");
+
+    if(product.dataset.name.startsWith("Moheto")){
+      sel.innerHTML = `
+        <option value="" disabled selected>Select Flavor</option>
+        <option value="Mix Berry">Mix Berry</option>
+        <option value="Passion Fruit">Passion Fruit</option>
+        <option value="Blue Curacao">Blue Curacao</option>
+        <option value="Mango">Mango</option>
+        <option value="Kiwi">Kiwi</option>
+      `;
+    } else {
+      sel.innerHTML = `
+        <option value="White & Black Chocolate" selected>White & Black Chocolate</option>
+        <option value="Pistachio">Pistachio (+0.5 JD)</option>
+        <option value="Lotus">Lotus (+0.5 JD)</option>
+        <option value="Kinder">Kinder (+0.5 JD)</option>
+      `;
+    }
+
+    sel.addEventListener("change", () => { calculateTotal(); updateSendButtonState(); });
+    div.appendChild(sel);
+    unitsContainer.appendChild(div);
+    calculateTotal(); updateSendButtonState();
+  });
+
+  minusBtn.addEventListener("click", () => {
+    let count = parseInt(qtySpan.textContent);
+    if(count>0){ count--; qtySpan.textContent = count; if(unitsContainer.lastChild) unitsContainer.removeChild(unitsContainer.lastChild);}
+    calculateTotal(); updateSendButtonState();
+  });
+});
+
+function calculateTotal(){
+  let total = 0;
+  products.forEach(p => {
+    const basePrice = parseFloat(p.dataset.price);
+    p.querySelectorAll(".unit-addon select").forEach(sel => {
+      if(sel.value !== "") { total += basePrice; if(!p.dataset.name.startsWith("Moheto") && sel.value !== "White & Black Chocolate") total += 0.5; }
+    });
+  });
+
+  const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
+  if(delivery==="Delivery" && deliveryAreaSelect.value && deliveryAreaSelect.value!=="other"){
+    const option = deliveryAreaSelect.querySelector(`option[value="${deliveryAreaSelect.value}"]`);
+    if(option) total += parseFloat(option.dataset.price);
+  }
+  totalEl.textContent = `Total: ${total.toFixed(2)} JD`;
+  return total;
+}
+
+function updateSendButtonState(){
+  const hasItems = Array.from(products).some(p=>p.querySelectorAll(".unit-addon select").length>0);
+  sendBtn.disabled = !hasItems;
+}
+
+// عرض ملخص الطلب
+function showPreview(){
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const address = addressInput.value.trim();
+  const notes = notesInput.value.trim();
+  const delivery = document.querySelector('input[name="delivery"]:checked')?.value || "Not selected";
+
+  if(!name||!phone){ alert("⚠️ الرجاء إدخال الاسم ورقم الهاتف."); return;}
+  if(delivery==="Delivery" && !address){ alert("⚠️ الرجاء إدخال العنوان للتوصيل."); return;}
+  if(delivery==="Delivery" && !deliveryAreaSelect.value){ alert("⚠️ الرجاء اختيار منطقة التوصيل."); return;}
+
+  let orderList=[]; let mohetoValid=true;
+  products.forEach(p=>{
+    p.querySelectorAll(".unit-addon select").forEach(sel=>{
+      if(p.dataset.name.startsWith("Moheto") && sel.value==="") mohetoValid=false;
+      if(sel.value!=="") { let price=parseFloat(p.dataset.price); if(!p.dataset.name.startsWith("Moheto") && sel.value!=="White & Black Chocolate") price+=0.5; orderList.push(`${p.dataset.name} (${sel.value}) - ${price.toFixed(2)} JD`);}
+    });
+  });
+
+  if(!mohetoValid){ alert("⚠️ الرجاء اختيار نكهة لكل Moheto."); return;}
+  if(orderList.length===0){ previewBox.style.display="block"; previewBox.innerHTML="<p>⚠️ No items selected.</p>"; return;}
+
+  const total=calculateTotal();
+  let areaNote='';
+  if(delivery==="Delivery" && deliveryAreaSelect.value==="other"){ areaNote="<p><b>⚠️ ملاحظة:</b> المنطقة غير مذكورة ضمن الخيارات، يرجى التواصل معنا لتأكيد الطلب.</p>"; }
+
+  previewBox.style.display="block";
+  previewBox.innerHTML=`
+    <h3>Order Summary 📋</h3>
+    <p><b>Name:</b> ${name}</p>
+    <p><b>Phone:</b> ${phone}</p>
+    <p><b>Delivery Method:</b> ${delivery}</p>
+    <p><b>Delivery Area:</b> ${delivery==="Delivery"?deliveryAreaSelect.options[deliveryAreaSelect.selectedIndex].text:"N/A"}</p>
+    <p><b>Address:</b> ${delivery==="Delivery"?address||"N/A":"N/A"}</p>
+    <p><b>Notes:</b> ${notes||"None"}</p>
+    ${areaNote}
+    <ul><li>${orderList.join("</li><li>")}</li></ul>
+    <p><b>💰 Total:</b> ${total.toFixed(2)} JD</p>
+  `;
+}
+
+// زر إرسال WhatsApp
+sendBtn.addEventListener("click",()=>{
+  const name=document.getElementById("name").value.trim();
+  const phone=document.getElementById("phone").value.trim();
+  const address=addressInput.value.trim();
+  const notes=notesInput.value.trim();
+  const delivery=document.querySelector('input[name="delivery"]:checked')?.value||"Not selected";
+  const deliveryArea=deliveryAreaSelect.value;
+
+  if(!name||!phone){
+    alert("⚠️ الرجاء إدخال الاسم ورقم الهاتف."); 
+    return; 
+  }
+  if(delivery==="Delivery" && !address){ 
+    alert("⚠️ الرجاء إدخال العنوان للتوصيل."); 
+    return; 
+  }
+  if(delivery==="Delivery" && !deliveryArea){ 
+    alert("⚠️ الرجاء اختيار منطقة التوصيل."); 
+    return; 
+  }
+
+  let orderList = []; 
+  let mohetoValid = true;
+
+  products.forEach(p => {
+    p.querySelectorAll(".unit-addon select").forEach(sel => {
+      if(p.dataset.name.startsWith("Moheto") && sel.value==="") mohetoValid=false;
+      if(sel.value!=="") {
+        let price = parseFloat(p.dataset.price);
+        if(!p.dataset.name.startsWith("Moheto") && sel.value!=="White & Black Chocolate") price+=0.5;
+        orderList.push(`${p.dataset.name} (${sel.value}) - ${price.toFixed(2)} JD`);
+      }
+    });
+  });
+
+  if(!mohetoValid){ 
+    alert("⚠️ الرجاء اختيار نكهة لكل Moheto."); 
+    return; 
+  }
+
+  if(orderList.length===0){ 
+    alert("⚠️ No items selected!"); 
+    return; 
+  }
+
+  const total = calculateTotal();
+
+  let areaText = "";
+  if(delivery==="Delivery"){
+    areaText = `Delivery Area: ${deliveryAreaSelect.options[deliveryAreaSelect.selectedIndex].text}`;
+    if(deliveryArea==="other"){
+      areaText += " (غير مذكورة - يرجى التواصل معنا)";
+    }
+  }
+
+  const message = `New Order 📦%0AName: ${name}%0APhone: ${phone}%0ADelivery: ${delivery}%0A${areaText ? areaText + "%0A" : ""}Address: ${address}%0AItems: ${orderList.join(" | ")}%0ATotal: ${total.toFixed(2)} JD%0ANotes: ${notes}`;
+  
+  const whatsappNumber = "962781613637"; // ضع رقمك هنا
+  window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+});
+
+// ربط زر عرض الملخص
+showPreviewBtn.addEventListener("click", showPreview);
+
+// إعادة تعيين الطلب
+resetBtn.addEventListener("click", ()=>{
+  products.forEach(p=>{
+    p.querySelector(".qty").textContent="0";
+    p.querySelector(".units-container").innerHTML="";
+  });
+  document.getElementById("name").value="";
+  document.getElementById("phone").value="";
+  addressInput.value="";
+  notesInput.value="";
+  deliveryAreaSelect.value="";
+  deliveryAreaSelect.style.display="none";
+  deliveryAreaSelect.required=false;
+  addressInput.disabled=true;
+  addressInput.required=false;
+  document.querySelectorAll('input[name="delivery"]').forEach(r=>r.checked=false);
+  totalEl.textContent="Total: 0 JD";
+  previewBox.style.display="none";
+  sendBtn.disabled=true;
+});
+</script>
+
+</body>
+</html>
